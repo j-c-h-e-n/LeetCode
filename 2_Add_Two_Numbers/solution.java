@@ -8,44 +8,31 @@ class ListNode {
 
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        /* don't use (int) to transfer between lists
-         * transfer it directly.
-         */
-        int sum = 0;
-        ListNode l1_curr = l1, l2_curr = l2, head = new ListNode();
-        ListNode result = head.next;
-        while (l1_curr != null || l2_curr != null){
-            if (l1_curr != null){
-                sum = l1_curr.val;
-            }
-            if (l2_curr != null){
-                System.out.println("l2_curr.val: " + l2_curr.val);
-                sum += l2_curr.val;
-            }
-            if (l1_curr != null){
-                l1_curr = l1_curr.next;
-            }
-            if (l2_curr != null){
-                l2_curr = l2_curr.next;
-            }
-            if (sum % 10 == 0){
-                sum++;
-            }
-            else{
-                sum = 0;
-            }
-            result = new ListNode(sum);
-            System.out.println(sum);
-            result = result.next;
+        ListNode head = new ListNode();   // dummy head
+        ListNode current = head;
+        int carry = 0;  // amount to carry over into higher digits
+        while (l1 != null || l2 != null || carry != 0){ // both l1 and l2 can be finished when there's still a carry left to be added
+            int l1_val = (l1 != null) ? l1.val : 0; // condition ? true cond : false cond
+            int l2_val = (l2 != null) ? l2.val : 0;
 
+            int sum = l1_val + l2_val + carry;
+            carry = sum / 10;   // calculated after determining the sum to ensure the next iteration has proper carry
+
+            current.next = new ListNode(sum % 10);   // ensuring value is between 0 - 9
+            current = current.next;
+
+            // iterate l1 and l2 to the next node if it exists
+            l1 = (l1 != null) ? l1.next : null;
+            l2 = (l2 != null) ? l2.next : null;
         }
-        /* check resulting list */
-        result = head.next;
-        head = null;
-        for (ListNode curr = result; curr != null; curr = curr.next){
+        head = head.next;   // making sure we don't return dummy head
+
+
+        // check our result
+        for (ListNode curr = head; curr != null; curr = curr.next){
             System.out.println(curr.val);
         }
 
-        return result;
+        return head;
     }
 }
