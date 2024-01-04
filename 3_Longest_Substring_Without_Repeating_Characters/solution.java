@@ -15,20 +15,21 @@ class Solution {
         while (index < length){
             if (!snippet.contains(""+s.charAt(index))){
                 // if snippet does not contain character
+                //System.out.println("adding to snippet");
                 snippet += s.charAt(index);
-                
+                snippetSize++;
             }
             else{
                 // if snippet DOES contain character
-                prevSize = snippetSize;
-                snippetSize = 0;
-                snippet = "";
+                //System.out.println("restarting snippet");
+                prevSize = (prevSize > snippetSize) ? (prevSize) : (snippetSize);
+                snippetSize = 1;
+                snippet = "" + s.charAt(index);
             }
 
             index++;
         }
-        s.charAt(index);
-
+ 
         return snippetSize = (prevSize > snippetSize) ? (prevSize) : (snippetSize);
     }
 }
