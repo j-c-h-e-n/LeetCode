@@ -1,9 +1,8 @@
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        int substrStart = 0, substrEnd = 0;
         int index = 0;
         int length = s.length();
-        String longestSnippet = "";
+        String snippet = "";
         int snippetSize = 0, prevSize = 0;
 
         // every different char encounter gets appended to a separate string if it did not already exist.
@@ -14,10 +13,22 @@ class Solution {
          * Example: abcbcbb, max length is 3 for "abc"
          */
         while (index < length){
+            if (!snippet.contains(""+s.charAt(index))){
+                // if snippet does not contain character
+                snippet += s.charAt(index);
+                
+            }
+            else{
+                // if snippet DOES contain character
+                prevSize = snippetSize;
+                snippetSize = 0;
+                snippet = "";
+            }
 
+            index++;
         }
-        s.charAt(0);
+        s.charAt(index);
 
-        return substrEnd - substrStart;
+        return snippetSize = (prevSize > snippetSize) ? (prevSize) : (snippetSize);
     }
 }
