@@ -22,14 +22,23 @@ class Solution {
             else{
                 // if snippet DOES contain character
                 //System.out.println("restarting snippet");
-                prevSize = (prevSize > snippetSize) ? (prevSize) : (snippetSize);
-                snippetSize = 1;
-                snippet = "" + s.charAt(index);
+                prevSize = (prevSize > snippetSize) ? (prevSize) : (snippetSize);   // determine the new length
+                /*
+                 * 1. Need to find the last instance of the repeat character in the snippet.
+                 * 2. Add all characters after the last instance of the repeat character into the new snippet.
+                 * 3. Add to snippetSize respectively.
+                 * 4. Finally, consider the "newer" repeat character
+                 */
+                String temp = snippet.substring(snippet.indexOf(s.charAt(index)) + 1);  // 1 & 2
+                snippetSize = temp.length();    // 3
+
+                snippetSize++;  // 4
+                snippet = temp + s.charAt(index);   // 2 & 4
             }
 
             index++;
         }
- 
+
         return snippetSize = (prevSize > snippetSize) ? (prevSize) : (snippetSize);
     }
 }
